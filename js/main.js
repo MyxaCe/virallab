@@ -1,16 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     var form = document.querySelector("form");
 
-    form?.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        if (validateForm()) {
-            // Здесь раньше был вызов PHP-скрипта через fetch.
-            // Вместо этого просто покажем сообщение об успешной отправке
-            showNotification("Message sent successfully", "success");
-            form?.reset();
-        }
-    });
+    // ❌ Удаляем перехват отправки, чтобы форма ушла на Web3Forms
+    // ✅ Оставим только валидацию в реальном времени
 
     function validateForm() {
         var isValid = true;
@@ -63,31 +55,14 @@ document.addEventListener("DOMContentLoaded", function () {
         return re.test(email);
     }
 
-    function showNotification(message, type) {
-        toastr.options = {
-            closeButton: false,
-            progressBar: true,
-            positionClass: "toast-bottom-right",
-            showDuration: 300,
-            hideDuration: 1000,
-            timeOut: 5000,
-            extendedTimeOut: 1000,
-        };
-        toastr.clear();
-        if (type === "success") {
-            toastr.success(message, "", { className: "toast-success" });
-        } else {
-            toastr.error(message, "", { className: "toast-error" });
-        }
-    }
-
-    // Add input event listeners for real-time validation
+    // ✅ Валидация "на лету", но без отмены отправки
     form?.querySelectorAll('input, textarea').forEach(function (input) {
         input.addEventListener('input', function () {
             validateForm();
         });
     });
 });
+
 
 
 // ---------------- preloader -------------------- //
@@ -455,3 +430,4 @@ if (typeof VanillaTilt !== 'undefined') {
     });
 
 }
+

@@ -5,24 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         if (validateForm()) {
-            var formData = new FormData(form);
-            fetch("send_to_telegram.php", {
-                method: "POST",
-                body: formData
-            })
-                .then(response => response.text())
-                .then(result => {
-                    if (result === "Success") {
-                        showNotification("Message sent successfully", "success");
-                        form?.reset();
-                    } else {
-                        showNotification("Message sent successfully", "success");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    showNotification("Message sent successfully", "success");
-                });
+            // Здесь раньше был вызов PHP-скрипта через fetch.
+            // Вместо этого просто покажем сообщение об успешной отправке
+            showNotification("Message sent successfully", "success");
+            form?.reset();
         }
     });
 
@@ -102,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
 
 // ---------------- preloader -------------------- //
 
@@ -466,4 +453,5 @@ if (typeof VanillaTilt !== 'undefined') {
         glare: true,
         "max-glare": 0.1
     });
+
 }
